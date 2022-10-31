@@ -353,7 +353,9 @@ namespace BL
             {
                 using (DL.IGarciaControlEscolarEntities context = new DL.IGarciaControlEscolarEntities())
                 {
-                    var query = context.GetMateriaNOAsignada(alumnoMateria.Alumno.IdAlumno).ToList();
+                    int IdAlumno = alumnoMateria.Alumno.IdAlumno;
+
+                    var query = context.GetMateriaNOAsignada(IdAlumno).ToList();
 
                     if (query != null)
                     {
@@ -363,26 +365,27 @@ namespace BL
                         {
                             
                             alumnoMateria = new ML.AlumnoMateria();
-                            alumnoMateria.IdAlumno = (int)item.IdAlumno;
-                            alumnoMateria.IdAlumnoMateria = (int)item.IdMateria;
+                            //alumnoMateria.IdAlumno = (int)item.IdAlumno;
+                            //alumnoMateria.IdAlumnoMateria = item.;
+                            //alumnoMateria.IDAlumMatIDMateria = (int)item.IDAlumMatIDMateria;   
 
-                            alumnoMateria.Alumno = new ML.Alumno();
-                            alumnoMateria.Alumno.IdAlumno = (int)item.IdAlumno;
+                            //alumnoMateria.Alumno = new ML.Alumno();
+                            //alumnoMateria.Alumno.IdAlumno = (int)item.;
 
                             alumnoMateria.Materia = new ML.Materia();
                             alumnoMateria.Materia.IdMateria = (int)item.IdMateria;
                             alumnoMateria.Materia.Nombre = item.Nombre;
                             alumnoMateria.Materia.Costo = (decimal)item.Costo;
 
-                            if (alumnoMateria.IdAlumnoMateria != alumnoMateria.Materia.IdMateria)
-                            {
-                                result.Objects.Add(alumnoMateria);
-                            }
+                            result.Objects.Add(alumnoMateria);
 
+                                
+                            
                             //result.Object = alumnoMateria; //boxing
 
                             result.Correct = true;
                         }
+
                     }
                     else
                     {
@@ -425,7 +428,32 @@ namespace BL
             return result;
         }
 
-
+        public static ML.Result AlumnoMateriaAdd(ML.AlumnoMateria alumnoMateria)
+        {
+            ML.Result result = new ML.Result();
+            //using ()
+            try
+            {
+                using (DL.IGarciaControlEscolarEntities context = new DL.IGarciaControlEscolarEntities())
+                {
+                    var query = context.AlumnoMateriaAdd(alumnoMateria.Alumno.IdAlumno, alumnoMateria.Materia.IdMateria);
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Ex = ex;
+                throw;
+            }
+            return result;
+        }
 
     }
 

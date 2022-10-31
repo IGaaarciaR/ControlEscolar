@@ -18,5 +18,8 @@ namespace ML
         public string NombreAlumno { get; set; }   
         public decimal CostoMateria { get; set; }   
 
+        public int IDAlumMatIDMateria { get; set; }  
+        public int IDMateria { get; set; }  
+
     }
 }

@@ -160,9 +160,7 @@
           <Property Type="Decimal" Name="CostoMateria" Nullable="true" Precision="5" Scale="2" />
         </ComplexType>
         <ComplexType Name="GetMateriaNOAsignada_Result">
-          <Property Type="Int32" Name="IdAlumno" Nullable="true" />
-          <Property Type="Int32" Name="IdMateria" Nullable="true" />
-          <Property Type="Int32" Name="IdMateria1" Nullable="false" />
+          <Property Type="Int32" Name="IdMateria" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Costo" Nullable="true" Precision="5" Scale="2" />
         </ComplexType>
@@ -228,9 +226,7 @@
           <FunctionImportMapping FunctionImportName="GetMateriaNOAsignada" FunctionName="IGarciaControlEscolarModel.Store.GetMateriaNOAsignada">
             <ResultMapping>
               <ComplexTypeMapping TypeName="IGarciaControlEscolarModel.GetMateriaNOAsignada_Result">
-                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
                 <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
-                <ScalarProperty Name="IdMateria1" ColumnName="IdMateria1" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
               </ComplexTypeMapping>

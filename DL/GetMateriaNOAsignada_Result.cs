@@ -13,9 +13,7 @@ namespace DL
     
     public partial class GetMateriaNOAsignada_Result
     {
-        public Nullable<int> IdAlumno { get; set; }
-        public Nullable<int> IdMateria { get; set; }
-        public int IdMateria1 { get; set; }
+        public int IdMateria { get; set; }
         public string Nombre { get; set; }
         public Nullable<decimal> Costo { get; set; }
     }

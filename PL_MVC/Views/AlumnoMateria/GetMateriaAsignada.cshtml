@@ -11,7 +11,10 @@
 
     <div class="row">
         <div class="col-md-3">
-            @Html.ActionLink("Agregar Materia  +", "GetMateriaNOAsignada", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-success" })
+            <a class="btn btn-success" href="@Url.Action("GetMateriaNOAsignada","AlumnoMateria" , new { IdAlumno = Model.Alumno.IdAlumno } )">Agregar Materia
+
+            </a>
+            
         </div>
     </div>
     <div class="row">
@@ -27,6 +30,7 @@
 
             @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control" , @disabled = true })
 
+        
         </div>
 
     </div>
@@ -63,7 +67,7 @@
                         </td>
 
                         <th class="text-center">
-                            <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("AlumnoMateriaDelete", "AlumnoMateria", new {IdAlumnoMateria = alumnoMateria.IdAlumnoMateria})" onclick="return confirm('¿Estas seguro que deseas eliminar este registro?');"></a>
+                            <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("AlumnoMateriaDelete", "AlumnoMateria", new {IdAlumnoMateria = alumnoMateria.IdAlumnoMateria , IdAlumno = alumnoMateria.Alumno.IdAlumno})" onclick="return confirm('¿Estas seguro que deseas eliminar este registro?');"></a>
                         </th>
                     </tr>
                 }

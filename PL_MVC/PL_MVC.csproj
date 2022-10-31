@@ -256,6 +256,7 @@
     <Content Include="Views\AlumnoMateria\GetMateriaAsignada.cshtml" />
     <Content Include="Views\AlumnoMateria\GetMateriaNOAsignada.cshtml" />
     <Content Include="Views\AlumnoMateria\Modal.cshtml" />
+    <Content Include="Views\AlumnoMateria\ModalMateriaAsignada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

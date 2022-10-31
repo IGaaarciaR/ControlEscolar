@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -85,17 +86,95 @@ namespace PL_MVC.Controllers
         [HttpGet]
         public ActionResult GetMateriaNOAsignada(int IdAlumno)
         {
+            ML.AlumnoMateria alumnoMateria = new ML.AlumnoMateria();
+            ML.Alumno alumno = new ML.Alumno();
+            ML.Materia materia = new ML.Materia();
 
-            return View();
+            alumno.IdAlumno = IdAlumno;
+            alumnoMateria.Alumno = new ML.Alumno();
+            alumnoMateria.Materia = new ML.Materia();
 
+            alumnoMateria.Alumno.IdAlumno = IdAlumno;
+            
+
+            ML.Result resultAlumno = BL.Alumno.GetById(alumno);
+            ML.Result resultMateria = BL.Materia.GetAll();
+
+
+            if (resultAlumno.Correct)
+            {
+                alumno = ((ML.Alumno)resultAlumno.Object);
+
+                ML.Result resultAlumnoMat = BL.Alumno.GetMateriaNoAsignada(alumnoMateria);
+
+                if (resultAlumnoMat.Correct)
+                {
+                    //alumnoMateria.Materia.Materias = resultMateria.Objects;
+
+                    alumnoMateria.AlumnosMaterias = resultAlumnoMat.Objects;
+
+                    //alumnoMateria.Alumno = alumno;
+
+                    alumnoMateria.Alumno.Nombre = alumno.Nombre + " " + alumno.ApellidoPaterno + " " + alumno.ApellidoMaterno;
+                    
+                    
+                    //foreach (int var in alumnoMateria.AlumnosMaterias)
+                    //{
+                    //    if(alumnoMateria.IDAlumMatIDMateria != alumnoMateria.Materia.IdMateria)
+                    //    {
+
+                    //    }
+                    //}
+
+                    return View(alumnoMateria);
+                }
+                else
+                {
+                    return View(alumnoMateria);
+                }
+            }
+            else
+            {
+                return View(alumnoMateria);
+            }
         }
-        public ActionResult AlumnoMateriaDelete(int IdAlumnoMateria)
+
+        //[HttpPost]
+        //public ActionResult GetMateriaNOAsignada(int IdAlumno, int IdAlumnoMateria)
+        //{
+
+        //    ML.Result resultMaterias = new ML.Result();
+        //    ML.AlumnoMateria alumnoMateria = new ML.AlumnoMateria();
+        //    alumnoMateria.IdAlumnoMateria = IdAlumnoMateria;
+        //    alumnoMateria.Alumno = new ML.Alumno();
+        //    alumnoMateria.Alumno.IdAlumno = IdAlumno;
+
+
+        //    ML.Result result = BL.Alumno.AlumnoMateriaAdd(alumnoMateria);
+
+        //    if (result.Correct)
+        //    {
+        //        resultMaterias = BL.Alumno.GetMateriaAsignada(alumnoMateria);
+        //        if (resultMaterias.Correct)
+        //        {
+        //            ViewBag.Message = "Materia eliminada correctamente";
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Message = "Ocurrio un error al eliminar la Materia";
+
+        //        }
+        //    }
+        //    return View("ModalMateriaAsignada");
+
+        //}
+        public ActionResult AlumnoMateriaDelete(int IdAlumnoMateria, int IdAlumno)
         {
             ML.AlumnoMateria alumnoMateria = new ML.AlumnoMateria();
             alumnoMateria.IdAlumnoMateria = IdAlumnoMateria;
 
             alumnoMateria.Alumno = new ML.Alumno();
-            alumnoMateria.Alumno.IdAlumno = IdAlumnoMateria;
+            alumnoMateria.Alumno.IdAlumno = IdAlumno;
 
             ML.Result resultMaterias = new ML.Result();
 
@@ -104,7 +183,7 @@ namespace PL_MVC.Controllers
             if (result.Correct)
             {
                 resultMaterias = BL.Alumno.GetMateriaAsignada(alumnoMateria);
-                if (resultMaterias.Correct && result.Correct)
+                if (resultMaterias.Correct)
                 {
                     ViewBag.Message = "Materia eliminada correctamente";
                 }
@@ -114,9 +193,37 @@ namespace PL_MVC.Controllers
 
                 }
             }
-            return View("Modal");
+            return View("ModalMateriaAsignada");
 
         }
 
+        [HttpPost]
+        public ActionResult AlumnoMateriaAdd(int IdAlumnoMateria, int IdAlumno)
+        {
+            ML.AlumnoMateria alumnoMateria = new ML.AlumnoMateria();
+            alumnoMateria.IdAlumnoMateria = IdAlumnoMateria;
+
+            alumnoMateria.Alumno = new ML.Alumno();
+            alumnoMateria.Alumno.IdAlumno = IdAlumno;
+
+            ML.Result resultMaterias = new ML.Result();
+
+            ML.Result result = BL.Alumno.AlumnoMateriaAdd(alumnoMateria);
+
+            if (result.Correct)
+            {
+                resultMaterias = BL.Alumno.GetMateriaAsignada(alumnoMateria);
+                if (resultMaterias.Correct)
+                {
+                    ViewBag.Message = "Materia agregada correctamente";
+                }
+                else
+                {
+                    ViewBag.Message = "Ocurrio un error al agregar la Materia";
+
+                }
+            }
+            return View("ModalMateriaAsignada");
+        }
     }
 }
