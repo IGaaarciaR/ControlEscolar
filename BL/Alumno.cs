@@ -436,7 +436,7 @@ namespace BL
             {
                 using (DL.IGarciaControlEscolarEntities context = new DL.IGarciaControlEscolarEntities())
                 {
-                    var query = context.AlumnoMateriaAdd(alumnoMateria.Alumno.IdAlumno, alumnoMateria.Materia.IdMateria);
+                    var query = context.AlumnoMateriaAdd( alumnoMateria.Materia.IdMateria, alumnoMateria.Alumno.IdAlumno);
                     if (query > 0)
                     {
                         result.Correct = true;

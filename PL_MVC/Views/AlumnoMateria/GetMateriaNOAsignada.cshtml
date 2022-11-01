@@ -4,64 +4,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>GetMateriaNOAsignada</h2>
+<h2>Materias No Asignadas </h2>
 
 <hr />
-<div class="row">
+<div class="container">
 
     <div class="row">
+        @using (Html.BeginForm("GetMateriaNOAsignada", "AlumnoMateria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @*<div class="col-md-3">
+                @Html.LabelFor(model => model.Alumno.Nombre)
 
-        <div class="col-md-3">
-            @Html.LabelFor(model => model.Alumno.Nombre)
+                @Html.TextBoxFor(model => model.Alumno.Nombre, new { @class = "form-control", @disabled = "disabled" })
 
-            @Html.TextBoxFor(model => model.Alumno.Nombre, new { @class = "form-control", @disabled = "disabled" })
+            </div>*@
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.Alumno.IdAlumno, new { @class = "control-label col-md-2 hidden" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control hidden", @readonly = true })
+                    @Html.ValidationMessageFor(model => model.Alumno.IdAlumno)
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.IdAlumno)
 
-        </div>
-        <div class="col-md-3">
-            @Html.LabelFor(model => model.IdAlumno)
+                @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control", @disabled = true })
 
-            @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control", @disabled = true })
+            </div>
 
-        </div>
+
+            <div class="row" style="padding-top:30px">
+                <div class="col-md-12 justify-content-center">
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th class="hidden" scope="col">
+                                IdMateria
+                            </th>
+                            <th class="text-center" scope="col">
+                                Selecciona
+                            </th>
+                            <th class="text-center" scope="col">
+                                Materia
+                            </th>
+                            <th class="text-center" scope="col">
+                                Costo
+                            </th>
+                        </tr>
+                        @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnosMaterias)
+                        {
+                            <tr>
+                                <td class="hidden">
+                                    @alumnoMateria.Materia.IdMateria
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" value="@alumnoMateria.Materia.IdMateria" name="AlumnosMaterias">
+                                </td>
+                                <td class="text-center">
+                                    @alumnoMateria.Materia.Nombre
+                                </td>
+                                <td class="text-center">
+                                    @alumnoMateria.Materia.Costo
+                                </td>
+
+                            </tr>
+                        }
+                    </table>
+                    <div class="form-group col-md-12">
+                        <div class="text-right">
+                            <input class="btn btn-success" type="submit" value="Actualizar" />
+                            <a class="btn btn-danger" href="@Url.Action("GetMateriaAsignada", "AlumnoMateria", new { IdAlumno = Model.Alumno.IdAlumno , IdMateria = Model.Materia.IdMateria })"> Regresar</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
 
     </div>
 
-    <div class="row" style="padding-top:30px">
-        <div class="col-md-12 justify-content-center">
-
-            <table class="table table-hover">
-                <tr>
-                    <th class="hidden" scope="col">
-                        IdMateria
-                    </th>
-                    <th class="text-center" scope="col">
-                        Materia
-                    </th>
-                    <th class="text-center" scope="col">
-                        Costo
-                    </th>
-                </tr>
-                @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnosMaterias)
-                {
-                    <tr>
-                        <td class="hidden">
-                            @alumnoMateria.Materia.IdMateria
-                        </td>
-                        <td class="text-center">
-
-                            @alumnoMateria.Materia.Nombre
-                            @Html.CheckBox(alumnoMateria.Materia.Nombre)
-                        </td>
-                        <td class="text-center">
-                            @alumnoMateria.Materia.Costo
-                        </td>
-
-                    </tr>
-                }
-            </table>
-
-        </div>
-
-    </div>
 
 </div>

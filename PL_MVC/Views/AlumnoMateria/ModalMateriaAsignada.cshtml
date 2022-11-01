@@ -17,7 +17,15 @@
                 <h5>@ViewBag.Message</h5>
             </div>
             <div class="modal-footer">
-                @Html.ActionLink("Regresar", "GetMateriaAsignada", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-danger" })
+                @if (ViewBag.MateriasAsignadas == true)
+                {
+                    <a class="btn btn-danger" href="@Url.Action("GetMateriaAsignada", "AlumnoMateria", new { IdAlumno = ViewBag.IdAlumno })"> Vale</a>
+                }
+                else
+                {
+                    <a class="btn btn-danger" href="@Url.Action("GetAll", "AlumnoMateria")"> Regresar</a>
+                }
+
             </div>
         </div>
     </div>
